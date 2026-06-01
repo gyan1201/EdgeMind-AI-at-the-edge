@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        background: #06100f;
+        font-family:
+            Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    ::selection {
+        background: #8df8d2;
+        color: #06100f;
+    }
+}
+
+@keyframes hero-drift {
+    from {
+        transform: scale(1.04) translate3d(-1%, 0, 0);
+    }
+
+    to {
+        transform: scale(1.12) translate3d(1.5%, -1.5%, 0);
+    }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scan {
+    0% {
+        opacity: 0;
+        transform: translateX(-120%);
+    }
+
+    14% {
+        opacity: 0.8;
+    }
+
+    86% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(120%);
+    }
+}
+
+@keyframes signal-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(141, 248, 210, 0.45);
+    }
+
+    50% {
+        box-shadow: 0 0 0 12px rgba(141, 248, 210, 0);
+    }
+}
+
+@keyframes packet-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.animate-hero-drift {
+    animation: hero-drift 18s ease-in-out infinite alternate;
+    transform-origin: center;
+}
+
+.reveal {
+    animation: fade-up 0.85s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.delay-1 {
+    animation-delay: 140ms;
+}
+
+.delay-2 {
+    animation-delay: 260ms;
+}
+
+.delay-3 {
+    animation-delay: 390ms;
+}
+
+.scan-line {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(141, 248, 210, 0.22) 48%, transparent 100%);
+    animation: scan 3.8s ease-in-out infinite;
+}
+
+.signal-dot {
+    animation: signal-pulse 2.2s ease-in-out infinite;
+}
+
+.packet {
+    animation: packet-float 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
