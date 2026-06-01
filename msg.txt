@@ -1,0 +1,3 @@
+Add another pair file for Pair Extraordinaire badge
+
+Co-authored-by: octocat <octocat@github.com>
