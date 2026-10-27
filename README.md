@@ -37,8 +37,9 @@ npm run build      # production build in dist/ (single file)
 npm run preview    # preview the production build
 ```
 
-The Vite base path is set to `/EdgeMind-AI-at-the-edge/` for GitHub Pages. When running the dev
-server behind a preview proxy, allow the host once with `npm run dev -- --base=/`.
+The dev and preview servers bind to `0.0.0.0` on port `5173` / `4173` and accept proxied preview
+hosts. Production builds use the `/EdgeMind-AI-at-the-edge/` base path required by GitHub Pages,
+while the local servers stay at `/` so a preview proxy can reach them directly.
 
 ## Structure
 
