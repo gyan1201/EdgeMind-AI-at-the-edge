@@ -12,6 +12,12 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
     base: "/EdgeMind-AI-at-the-edge/",
     plugins: [react(), tailwindcss(), viteSingleFile()],
+    server: {
+        allowedHosts: true,
+    },
+    preview: {
+        allowedHosts: true,
+    },
     resolve: {
         alias: {
             "@": path.resolve(__dirname, "src"),
