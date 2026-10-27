@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link, RouterProvider, RouteObject } from "react-router-dom";
 
 type Mode = "cloud" | "edge";
 
@@ -35,7 +36,8 @@ const modeCopy = {
     cloud: {
         label: "Raw relay",
         headline: "Every packet leaves the sensor.",
-        description: "Useful signals and background noise travel together, increasing bandwidth, storage, and review time.",
+        description:
+            "Useful signals and background noise travel together, increasing bandwidth, storage, and review time.",
         bandwidth: "18.4 MB/min",
         latency: "900 ms",
         noise: "76%",
@@ -44,7 +46,8 @@ const modeCopy = {
     edge: {
         label: "EdgeMind filter",
         headline: "Only meaningful events leave the sensor.",
-        description: "A compact model scores the stream locally and forwards the moments that need action.",
+        description:
+            "A compact model scores the stream locally and forwards the moments that need action.",
         bandwidth: "1.6 MB/min",
         latency: "34 ms",
         noise: "8%",
@@ -56,15 +59,15 @@ const packetHeights = [44, 72, 26, 88, 39, 66, 51, 94, 30, 58, 79, 34, 90, 48, 6
 
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
 };
 
 const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.15 }
-    }
+        transition: { staggerChildren: 0.15 },
+    },
 };
 
 export default function App() {
@@ -73,6 +76,50 @@ export default function App() {
 
     return (
         <main className="min-h-screen bg-[#06100f] text-[#ecfbf5]">
+            {/* Header with navigation */}
+            <header className="absolute inset-x-0 top-0 z-20 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 text-sm text-white/75 md:px-10">
+                <motion.a
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                    href="#top"
+                    className="font-semibold tracking-[0.28em] text-white uppercase neon-text-mint"
+                >
+                    EdgeMind
+                </motion.a>
+                <motion.nav
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="hidden items-center gap-8 md:flex"
+                >
+                    <a className="transition hover:text-white" href="#runtime">Runtime</a>
+                    <a className="transition hover:text-white" href="#filtering">Filtering</a>
+                    <a className="transition hover:text-white" href="#deploy">Deploy</a>
+                    <a className="transition hover:text-white" href="#pilot">Pilot</a>
+                </motion.nav>
+                <div className="hidden md:flex items-center gap-4">
+                    <a href="/" className="text-white/70 hover:text-white transition">
+                        Home
+                    </a>
+                    <a href="/about" className="text-white/70 hover:text-white transition">
+                        About
+                    </a>
+                    <a href="/docs" className="text-white/70 hover:text-white transition">
+                        Docs
+                    </a>
+                    <a href="/pricing" className="text-white/70 hover:text-white transition">
+                        Pricing
+                    </a>
+                    <a href="/team" className="text-white/70 hover:text-white transition">
+                        Team
+                    </a>
+                </div>
+            </header>
+
+            {/* Router Provider - handles client-side routing */}
+            <RouterProvider router={{ getParentRouter: () => null }} />
+
             {/* Hero Section */}
             <section className="relative min-h-screen overflow-hidden bg-[#06100f]">
                 <img
@@ -81,31 +128,9 @@ export default function App() {
                     className="animate-hero-drift absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,8,8,0.96)_0%,rgba(2,8,8,0.82)_35%,rgba(2,8,8,0.24)_72%,rgba(2,8,8,0.56)_100%)]" />
-                
-                <header className="absolute inset-x-0 top-0 z-20 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 text-sm text-white/75 md:px-10">
-                    <motion.a 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        href="#top" 
-                        className="font-semibold tracking-[0.28em] text-white uppercase neon-text-mint"
-                    >
-                        EdgeMind
-                    </motion.a>
-                    <motion.nav 
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="hidden items-center gap-8 md:flex"
-                    >
-                        <a className="transition hover:text-white" href="#runtime">Runtime</a>
-                        <a className="transition hover:text-white" href="#filtering">Filtering</a>
-                        <a className="transition hover:text-white" href="#deploy">Deploy</a>
-                    </motion.nav>
-                </header>
 
                 <div id="top" className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 pt-28 md:px-10">
-                    <motion.div 
+                    <motion.div
                         variants={staggerContainer}
                         initial="hidden"
                         animate="visible"
@@ -145,7 +170,7 @@ export default function App() {
             {/* Runtime Section */}
             <section id="runtime" className="relative bg-[#0a1816] px-6 py-24 text-[#ecfbf5] md:px-10 lg:py-32 overflow-hidden">
                 <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#8df8d2]/5 rounded-full blur-[120px] pointer-events-none" />
-                <motion.div 
+                <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
@@ -165,8 +190,8 @@ export default function App() {
                             </motion.p>
                             <div className="mt-12">
                                 {capabilities.map((item, index) => (
-                                    <motion.div 
-                                        key={item.title} 
+                                    <motion.div
+                                        key={item.title}
                                         variants={fadeUp}
                                         whileHover={{ x: 8, backgroundColor: "rgba(255,255,255,0.03)" }}
                                         className="grid gap-4 border-t border-white/15 py-7 sm:grid-cols-[0.45fr_0.55fr] transition-colors rounded-lg px-2 -mx-2"
@@ -185,7 +210,6 @@ export default function App() {
                                 <motion.div key={step} variants={fadeUp} className="relative group">
                                     <p className="text-sm font-semibold tracking-[0.2em] text-[#8df8d2] uppercase">0{index + 1}</p>
                                     <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] transition-colors group-hover:text-[#8df8d2]">{step}</p>
-                                    {index < pipeline.length - 1 ? <div className="mt-7 hidden h-px bg-white/15 md:block" /> : null}
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -196,7 +220,7 @@ export default function App() {
             {/* Filtering Section with 3D Tilt Card */}
             <section id="filtering" className="relative overflow-hidden bg-[#06100f] px-6 py-24 text-[#ecfbf5] md:px-10 lg:py-32">
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00F0FF]/5 rounded-full blur-[100px] pointer-events-none" />
-                <motion.div 
+                <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
@@ -213,7 +237,7 @@ export default function App() {
                         </p>
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         variants={fadeUp}
                         whileHover={{ scale: 1.02, rotateY: -2, rotateX: 2 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -226,7 +250,7 @@ export default function App() {
                                 <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em]">{activeMode.headline}</h3>
                             </div>
                             <div className="grid grid-cols-2 border border-white/15 text-sm font-semibold rounded-lg overflow-hidden bg-black/20">
-                                {(["cloud", "edge"] as Mode[]).map((item) => (
+                                {([ "cloud", "edge" ].map((item) => (
                                     <button
                                         key={item}
                                         type="button"
@@ -235,7 +259,7 @@ export default function App() {
                                     >
                                         {modeCopy[item].label}
                                     </button>
-                                ))}
+                                )))}
                             </div>
                         </div>
 
@@ -252,15 +276,14 @@ export default function App() {
                                         <motion.span
                                             layout
                                             initial={false}
-                                            animate={{ 
+                                            animate={{
                                                 height: `${height}%`,
                                                 opacity: visible ? 1 : 0.2,
-                                                backgroundColor: visible ? (isEvent ? "#8df8d2" : "rgba(255,255,255,0.35)") : "rgba(255,255,255,0.1)"
+                                                backgroundColor: visible ? (isEvent ? "#8df8d2" : "rgba(255,255,255,0.35)") : "rgba(255,255,255,0.1)",
                                             }}
                                             transition={{ type: "spring", stiffness: 200, damping: 20 }}
                                             key={`${height}-${index}`}
                                             className="packet block w-full rounded-t-full"
-                                            style={{ animationDelay: `${index * 90}ms` }}
                                         />
                                     );
                                 })}
@@ -280,7 +303,7 @@ export default function App() {
                             ].map(([label, value]) => (
                                 <div key={label} className="border-t border-white/12 pt-4">
                                     <p className="text-xs font-semibold tracking-[0.18em] text-white/42 uppercase">{label}</p>
-                                    <motion.p 
+                                    <motion.p
                                         key={value}
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -297,10 +320,10 @@ export default function App() {
 
             {/* Deploy Section */}
             <section id="deploy" className="relative bg-[#0a1816] px-6 py-24 text-[#ecfbf5] md:px-10 lg:py-32">
-                <motion.div 
+                <motion.div
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: true }}
                     variants={staggerContainer}
                     className="mx-auto max-w-7xl"
                 >
@@ -316,10 +339,10 @@ export default function App() {
 
                     <div className="mt-16 border-t border-white/15">
                         {deployments.map(([sensor, useCase, model]) => (
-                            <motion.div 
+                            <motion.div
                                 variants={fadeUp}
                                 whileHover={{ scale: 1.01, backgroundColor: "rgba(255,255,255,0.02)" }}
-                                key={sensor} 
+                                key={sensor}
                                 className="grid gap-5 border-b border-white/15 py-8 md:grid-cols-[0.8fr_1.1fr_1fr] md:items-center transition-colors rounded-xl px-4 -mx-4"
                             >
                                 <h3 className="text-2xl font-semibold tracking-[-0.04em] text-white">{sensor}</h3>
@@ -333,7 +356,7 @@ export default function App() {
 
             {/* Pilot Section */}
             <section id="pilot" className="bg-[#06100f] px-6 py-24 text-[#ecfbf5] md:px-10 lg:py-32">
-                <motion.div 
+                <motion.div
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
