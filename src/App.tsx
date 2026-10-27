@@ -114,6 +114,9 @@ export default function App() {
                     <a href="/team" className="text-white/70 hover:text-white transition">
                         Team
                     </a>
+                    <a href="/blog" className="text-white/70 hover:text-white transition">
+                        Blog
+                    </a>
                 </div>
             </header>
 
